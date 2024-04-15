@@ -1,4 +1,5 @@
-import 'package:chatapp3/spleshscreen.dart';
+import 'package:chatapp3/Config/Theme.dart';
+import 'package:chatapp3/Pages/SpleshScreen/SpleshScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,11 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SpleshScreen(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.dark,
+      home: const SpleshScreenPage(),
     );
   }
 }
