@@ -16,6 +16,10 @@ var darkTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     fillColor: dBackgroundColor,
     filled: true,
+    border: UnderlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(10),
+    ),
   ),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
