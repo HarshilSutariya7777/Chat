@@ -13,6 +13,10 @@ var darkTheme = ThemeData(
     primaryContainer: dContainerColor,
     onPrimaryContainer: dOnContainerColor,
   ),
+  inputDecorationTheme: InputDecorationTheme(
+    fillColor: dBackgroundColor,
+    filled: true,
+  ),
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
       fontSize: 32,
@@ -31,6 +35,36 @@ var darkTheme = ThemeData(
       color: dOnBackgroundColor,
       fontFamily: "Poppins",
       fontWeight: FontWeight.w600,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 15,
+      color: dOnContainerColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.w400,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 12,
+      color: dOnContainerColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.w400,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 10,
+      color: dOnContainerColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.w300,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 18,
+      color: dOnBackgroundColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.w500,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 15,
+      color: dOnBackgroundColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.w500,
     ),
   ),
 );
