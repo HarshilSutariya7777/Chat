@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class UpdateProfile extends StatelessWidget {
-  const UpdateProfile({super.key});
+class UserUpdateProfile extends StatelessWidget {
+  const UserUpdateProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
