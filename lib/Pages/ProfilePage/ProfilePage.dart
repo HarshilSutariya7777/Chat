@@ -90,8 +90,11 @@ class ProfilePage extends StatelessWidget {
                                             BorderRadius.circular(100),
                                       ),
                                       child: profileController.currentUser.value
-                                                  .profileImage ==
-                                              ""
+                                                      .profileImage ==
+                                                  "" ||
+                                              profileController.currentUser
+                                                      .value.profileImage ==
+                                                  null
                                           ? Icon(Icons.image)
                                           : ClipRRect(
                                               borderRadius:

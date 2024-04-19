@@ -1,5 +1,6 @@
 import 'package:chatapp3/Pages/Auth/Auth.dart';
 import 'package:chatapp3/Pages/Chat/ChatPage.dart';
+import 'package:chatapp3/Pages/ContactPage/ContactPage.dart';
 import 'package:chatapp3/Pages/HomePage/HomePage.dart';
 import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
 import 'package:chatapp3/Pages/UserProfile/UpdateProfile.dart';
@@ -19,6 +20,11 @@ var pagePath = [
   GetPage(
     name: "/chatPage",
     page: () => ChatPage(),
+    transition: Transition.rightToLeft,
+  ),
+  GetPage(
+    name: "/contactPage",
+    page: () => ContactPage(),
     transition: Transition.rightToLeft,
   ),
   // GetPage(
