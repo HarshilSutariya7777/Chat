@@ -4,6 +4,7 @@ import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
+import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -22,18 +23,35 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: Image.asset(Assetimage.boyPic),
+          child: InkWell(
+              onTap: () {
+                Get.to(UserProfilePage(
+                  userModel: userModel,
+                ));
+              },
+              child: Image.asset(Assetimage.boyPic)),
         ),
-        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            userModel.name ?? "User",
-            style: Theme.of(context).textTheme.bodyLarge,
+        title: InkWell(
+          onTap: () {
+            Get.to(UserProfilePage(
+              userModel: userModel,
+            ));
+          },
+          child: Row(
+            children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  userModel.name ?? "User",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  "Online",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ]),
+            ],
           ),
-          Text(
-            "Online",
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-        ]),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -87,7 +105,7 @@ class ChatPage extends StatelessWidget {
                   // );
                   if (messageController.text.isNotEmpty) {
                     chatController.sendMessage(
-                        userModel.id!, messageController.text);
+                        userModel.id!, messageController.text, userModel);
                     messageController.clear();
                   }
                 },

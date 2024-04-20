@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Controller/AuthController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
@@ -109,10 +110,22 @@ class ProfilePage extends StatelessWidget {
                                           : ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(100),
-                                              child: Image.network(
-                                                profileController.currentUser
-                                                    .value.profileImage!,
+                                              // child: Image.network(
+                                              //   profileController.currentUser
+                                              //       .value.profileImage!,
+                                              //   fit: BoxFit.cover,
+                                              // ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: profileController
+                                                    .currentUser
+                                                    .value
+                                                    .profileImage!,
                                                 fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
                                     ),

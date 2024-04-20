@@ -23,7 +23,7 @@ class ChatList extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed("/chatPage");
+            // Get.toNamed("/chatPage");
           },
           child: ChatTile(
             imageUrl: Assetimage.defultprofileImage,

@@ -1,5 +1,7 @@
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
+import 'package:chatapp3/Model/ChatRoomModel.dart';
+import 'package:chatapp3/Model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -27,7 +29,8 @@ class ChatController extends GetxController {
   //send message code
   //create chat collection
   //uuid create uniq user id to chat user
-  Future<void> sendMessage(String targetUserId, String message) async {
+  Future<void> sendMessage(
+      String targetUserId, String message, UserModel targetUser) async {
     isLoading.value = true;
     String chatid = uuid.v6();
     String roomID = getRoomId(targetUserId);
@@ -39,7 +42,20 @@ class ChatController extends GetxController {
       senderName: profileController.currentUser.value.name,
       timestamp: DateTime.now().toString(),
     );
+
+    var roomDetails = ChatRoomModel(
+      id: roomID,
+      lastMessage: message,
+      lastMessageTimestamp: DateTime.now().toString(),
+      sender: profileController.currentUser.value,
+      receiver: targetUser,
+      timestamp: DateTime.now().toString(),
+      unReadMessNo: 0,
+    );
     try {
+      await db.collection("chats").doc(roomID).set(
+            roomDetails.toJson(),
+          );
       await db
           .collection("chats")
           .doc(roomID)

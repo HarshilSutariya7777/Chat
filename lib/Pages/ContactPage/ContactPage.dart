@@ -1,5 +1,6 @@
 import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ContactController.dart';
+import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Pages/Chat/ChatPage.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/ContactSearch.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/NewContactTile.dart';
@@ -16,6 +17,7 @@ class ContactPage extends StatelessWidget {
     RxBool isSearchEnable = false.obs;
     ContactController contactController = Get.put(ContactController());
     ChatController chatController = Get.put(ChatController());
+    ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Select contact"),
@@ -73,7 +75,10 @@ class ContactPage extends StatelessWidget {
                               e.profileImage ?? Assetimage.defultprofileImage,
                           name: e.name ?? "User",
                           lastChat: e.about ?? "Hey there",
-                          lastTime: "",
+                          lastTime: e.email ==
+                                  profileController.currentUser.value.email
+                              ? "You"
+                              : "",
                         ),
                       ),
                     )
