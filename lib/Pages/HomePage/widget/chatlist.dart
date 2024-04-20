@@ -15,7 +15,18 @@ class ChatList extends StatelessWidget {
             Get.toNamed("/chatPage");
           },
           child: ChatTile(
-            imageUrl: Assetimage.girlPic,
+            imageUrl: Assetimage.defultprofileImage,
+            name: "Harshil Sutariya",
+            lastChat: "Keshe Ho Bhai",
+            lastTime: "08:33 PM",
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            Get.toNamed("/chatPage");
+          },
+          child: ChatTile(
+            imageUrl: Assetimage.defultprofileImage,
             name: "Harshil Sutariya",
             lastChat: "Keshe Ho Bhai",
             lastTime: "08:33 PM",

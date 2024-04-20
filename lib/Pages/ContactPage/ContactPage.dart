@@ -1,3 +1,4 @@
+import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/ContactSearch.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/NewContactTile.dart';
 import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
@@ -11,6 +12,7 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RxBool isSearchEnable = false.obs;
+    ContactController contactController = Get.put(ContactController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Select contact"),
@@ -52,64 +54,25 @@ class ContactPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/chatPage");
-                  },
-                  child: ChatTile(
-                    imageUrl: Assetimage.girlPic,
-                    name: "Harshil Sutariya",
-                    lastChat: "Keshe Ho Bhai",
-                    lastTime: "08:33 PM",
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/chatPage");
-                  },
-                  child: ChatTile(
-                    imageUrl: Assetimage.girlPic,
-                    name: "Harshil Sutariya",
-                    lastChat: "Keshe Ho Bhai",
-                    lastTime: "08:33 PM",
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/chatPage");
-                  },
-                  child: ChatTile(
-                    imageUrl: Assetimage.girlPic,
-                    name: "Harshil Sutariya",
-                    lastChat: "Keshe Ho Bhai",
-                    lastTime: "08:33 PM",
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/chatPage");
-                  },
-                  child: ChatTile(
-                    imageUrl: Assetimage.girlPic,
-                    name: "Harshil Sutariya",
-                    lastChat: "Keshe Ho Bhai",
-                    lastTime: "08:33 PM",
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/chatPage");
-                  },
-                  child: ChatTile(
-                    imageUrl: Assetimage.girlPic,
-                    name: "Harshil Sutariya",
-                    lastChat: "Keshe Ho Bhai",
-                    lastTime: "08:33 PM",
-                  ),
-                ),
-              ],
+            Obx(
+              () => Column(
+                children: contactController.userList
+                    .map(
+                      (e) => InkWell(
+                        onTap: () {
+                          // Get.toNamed("/chatPage");
+                        },
+                        child: ChatTile(
+                          imageUrl:
+                              e.profileImage ?? Assetimage.defultprofileImage,
+                          name: e.name ?? "User",
+                          lastChat: e.about ?? "Hey there",
+                          lastTime: "",
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),

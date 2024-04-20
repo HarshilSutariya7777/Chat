@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chatapp3/Controller/AuthController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Widget/PrimaryButton.dart';
@@ -24,9 +25,18 @@ class ProfilePage extends StatelessWidget {
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
     RxString imagePath = "".obs;
+    AuthController authController = Get.put(AuthController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authController.logoutUser();
+            },
+            icon: Icon(Icons.logout),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -91,10 +101,10 @@ class ProfilePage extends StatelessWidget {
                                       ),
                                       child: profileController.currentUser.value
                                                       .profileImage ==
-                                                  "" ||
+                                                  null ||
                                               profileController.currentUser
                                                       .value.profileImage ==
-                                                  null
+                                                  ""
                                           ? Icon(Icons.image)
                                           : ClipRRect(
                                               borderRadius:
