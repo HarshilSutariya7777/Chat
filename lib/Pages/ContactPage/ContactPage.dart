@@ -1,4 +1,6 @@
+import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ContactController.dart';
+import 'package:chatapp3/Pages/Chat/ChatPage.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/ContactSearch.dart';
 import 'package:chatapp3/Pages/ContactPage/Widget/NewContactTile.dart';
 import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
@@ -13,6 +15,7 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RxBool isSearchEnable = false.obs;
     ContactController contactController = Get.put(ContactController());
+    ChatController chatController = Get.put(ChatController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Select contact"),
@@ -60,7 +63,10 @@ class ContactPage extends StatelessWidget {
                     .map(
                       (e) => InkWell(
                         onTap: () {
-                          // Get.toNamed("/chatPage");
+                          Get.to(ChatPage(userModel: e));
+                          //Get.toNamed("/chatPage", arguments: e);
+                          // String roomID = chatController.getRoomId(e.id!);
+                          // print(roomID);
                         },
                         child: ChatTile(
                           imageUrl:

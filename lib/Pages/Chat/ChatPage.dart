@@ -1,13 +1,23 @@
 import 'package:chatapp3/Config/Images.dart';
+import 'package:chatapp3/Controller/ChatController.dart';
+import 'package:chatapp3/Controller/ProfileController.dart';
+import 'package:chatapp3/Model/ChatModel.dart';
+import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+  final UserModel userModel;
+  const ChatPage({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
+    ChatController chatController = Get.put(ChatController());
+    TextEditingController messageController = TextEditingController();
+    ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -16,7 +26,7 @@ class ChatPage extends StatelessWidget {
         ),
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            "Harshil Sutariya",
+            userModel.name ?? "User",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           Text(
@@ -51,6 +61,7 @@ class ChatPage extends StatelessWidget {
               SizedBox(width: 10),
               Expanded(
                 child: TextField(
+                  controller: messageController,
                   decoration: InputDecoration(
                       filled: false, hintText: "Type message ..."),
                 ),
@@ -65,47 +76,71 @@ class ChatPage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 10),
-              Container(
-                width: 30,
-                height: 30,
-                child: SvgPicture.asset(
-                  Assetimage.chatSendSVG,
-                  width: 25,
+              InkWell(
+                onTap: () {
+                  // var newChat = ChatModel(
+                  //   id: DateTime.now().millisecondsSinceEpoch.toString(),
+                  //   message: messageController.text,
+                  //   senderId: chatController.auth.currentUser!.uid,
+                  //   receiverId: userModel.id,
+                  //   timestamp: DateTime.now().microsecondsSinceEpoch.toString(),
+                  // );
+                  if (messageController.text.isNotEmpty) {
+                    chatController.sendMessage(
+                        userModel.id!, messageController.text);
+                    messageController.clear();
+                  }
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  child: SvgPicture.asset(
+                    Assetimage.chatSendSVG,
+                    width: 25,
+                  ),
                 ),
               ),
             ],
           )),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            ChatBubble(
-                message: "Hello",
-                imageUrl: "",
-                isComming: true,
-                status: "read",
-                time: "10:10 AM"),
-            ChatBubble(
-                message: "Hello",
-                imageUrl: "",
-                isComming: false,
-                status: "read",
-                time: "10:10 AM"),
-            ChatBubble(
-                message: "Hello",
-                imageUrl:
-                    "https://assets-global.website-files.com/5f841209f4e71b2d70034471/60bb4a2e143f632da3e56aea_Flutter%20app%20development%20(2).png",
-                isComming: false,
-                status: "read",
-                time: "10:10 AM"),
-            ChatBubble(
-                message: "Hello",
-                imageUrl: "",
-                isComming: true,
-                status: "read",
-                time: "10:10 AM"),
-          ],
-        ),
+        padding: EdgeInsets.only(bottom: 70, top: 10, left: 10, right: 10),
+        child: StreamBuilder<List<ChatModel>>(
+            stream: chatController.getMessages(userModel.id!),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text("Error:${snapshot.error}"),
+                );
+              }
+              if (snapshot.data == null) {
+                return Center(
+                  child: Text("No Messages"),
+                );
+              } else {
+                return ListView.builder(
+                    reverse: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      //format date
+                      DateTime timestamp =
+                          DateTime.parse(snapshot.data![index].timestamp!);
+                      String formattedTime =
+                          DateFormat("hh:mm a").format(timestamp);
+                      return ChatBubble(
+                          message: snapshot.data![index].message!,
+                          isComming: snapshot.data![index].receiverId ==
+                              profileController.currentUser.value.id,
+                          time: formattedTime,
+                          status: "read",
+                          imageUrl: snapshot.data![index].imageUrl ?? "");
+                    });
+              }
+            }),
       ),
     );
   }
