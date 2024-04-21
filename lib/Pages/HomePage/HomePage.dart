@@ -1,5 +1,6 @@
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Config/String.dart';
+import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Pages/HomePage/widget/Tabbar.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     ProfileController profileController = Get.put(ProfileController());
+    ContactController contactController = Get.put(ContactController());
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
     return Scaffold(
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         actions: [
           IconButton(
             onPressed: () {
-              imagePickerController.pickImage();
+              contactController.getChatRoomList();
             },
             icon: Icon(Icons.search),
           ),

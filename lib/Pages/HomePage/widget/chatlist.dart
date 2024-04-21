@@ -1,4 +1,6 @@
 import 'package:chatapp3/Config/Images.dart';
+import 'package:chatapp3/Controller/ContactController.dart';
+import 'package:chatapp3/Pages/Chat/ChatPage.dart';
 import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,31 +10,30 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        InkWell(
-          onTap: () {
-            Get.toNamed("/chatPage");
-          },
-          child: ChatTile(
-            imageUrl: Assetimage.defultprofileImage,
-            name: "Harshil Sutariya",
-            lastChat: "Keshe Ho Bhai",
-            lastTime: "08:33 PM",
+    ContactController contactController = Get.put(ContactController());
+    return RefreshIndicator(
+        child: Obx(
+          () => ListView(
+            children: contactController.chatRoomList
+                .map(
+                  (e) => InkWell(
+                    onTap: () {
+                      Get.to(ChatPage(userModel: e.receiver!));
+                    },
+                    child: ChatTile(
+                      imageUrl: e.receiver!.profileImage ??
+                          Assetimage.defultprofileImage,
+                      name: e.receiver!.name ?? "User Name",
+                      lastChat: e.lastMessage ?? "Last Message",
+                      lastTime: e.lastMessageTimestamp ?? "Last Time",
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ),
-        InkWell(
-          onTap: () {
-            // Get.toNamed("/chatPage");
-          },
-          child: ChatTile(
-            imageUrl: Assetimage.defultprofileImage,
-            name: "Harshil Sutariya",
-            lastChat: "Keshe Ho Bhai",
-            lastTime: "08:33 PM",
-          ),
-        ),
-      ],
-    );
+        onRefresh: () {
+          return contactController.getChatRoomList();
+        });
   }
 }

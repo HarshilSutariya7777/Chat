@@ -5,6 +5,7 @@ import 'package:chatapp3/Model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatController extends GetxController {
@@ -34,6 +35,8 @@ class ChatController extends GetxController {
     isLoading.value = true;
     String chatid = uuid.v6();
     String roomID = getRoomId(targetUserId);
+    DateTime timestamp = DateTime.now();
+    String nowTime = DateFormat("hh:mm a").format(timestamp);
     var newChat = ChatModel(
       id: chatid,
       message: message,
@@ -46,7 +49,7 @@ class ChatController extends GetxController {
     var roomDetails = ChatRoomModel(
       id: roomID,
       lastMessage: message,
-      lastMessageTimestamp: DateTime.now().toString(),
+      lastMessageTimestamp: nowTime,
       sender: profileController.currentUser.value,
       receiver: targetUser,
       timestamp: DateTime.now().toString(),
