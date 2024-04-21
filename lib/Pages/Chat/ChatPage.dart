@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
+import 'package:chatapp3/Pages/Chat/widget/TypeMessage.dart';
 import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,17 +23,32 @@ class ChatPage extends StatelessWidget {
     ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: InkWell(
-              onTap: () {
-                Get.to(UserProfilePage(
-                  userModel: userModel,
-                ));
-              },
-              child: Image.asset(Assetimage.boyPic)),
-        ),
+        leading: InkWell(
+            onTap: () {
+              Get.to(UserProfilePage(
+                userModel: userModel,
+              ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                  width: 50,
+                  height: 50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: CachedNetworkImage(
+                      imageUrl: userModel.profileImage ??
+                          Assetimage.defultprofileImage,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                  )),
+            )),
         title: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () {
             Get.to(UserProfilePage(
               userModel: userModel,
@@ -64,62 +81,7 @@ class ChatPage extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Theme.of(context).colorScheme.primaryContainer),
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                Assetimage.chatMicSVG,
-                width: 25,
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: TextField(
-                  controller: messageController,
-                  decoration: InputDecoration(
-                      filled: false, hintText: "Type message ..."),
-                ),
-              ),
-              SizedBox(width: 10),
-              Container(
-                height: 30,
-                width: 30,
-                child: SvgPicture.asset(
-                  Assetimage.chatGalarySVG,
-                  width: 25,
-                ),
-              ),
-              SizedBox(width: 10),
-              InkWell(
-                onTap: () {
-                  // var newChat = ChatModel(
-                  //   id: DateTime.now().millisecondsSinceEpoch.toString(),
-                  //   message: messageController.text,
-                  //   senderId: chatController.auth.currentUser!.uid,
-                  //   receiverId: userModel.id,
-                  //   timestamp: DateTime.now().microsecondsSinceEpoch.toString(),
-                  // );
-                  if (messageController.text.isNotEmpty) {
-                    chatController.sendMessage(
-                        userModel.id!, messageController.text, userModel);
-                    messageController.clear();
-                  }
-                },
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  child: SvgPicture.asset(
-                    Assetimage.chatSendSVG,
-                    width: 25,
-                  ),
-                ),
-              ),
-            ],
-          )),
+      floatingActionButton: TypeMessage(userModel: userModel),
       body: Padding(
         padding: EdgeInsets.only(bottom: 70, top: 10, left: 10, right: 10),
         child: StreamBuilder<List<ChatModel>>(
