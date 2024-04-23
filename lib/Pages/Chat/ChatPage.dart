@@ -8,7 +8,6 @@ import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
 import 'package:chatapp3/Pages/Chat/widget/TypeMessage.dart';
 import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -80,47 +79,54 @@ class ChatPage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: TypeMessage(userModel: userModel),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: TypeMessage(userModel: userModel),
       body: Padding(
         padding: EdgeInsets.only(bottom: 70, top: 10, left: 10, right: 10),
-        child: StreamBuilder<List<ChatModel>>(
-            stream: chatController.getMessages(userModel.id!),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error:${snapshot.error}"),
-                );
-              }
-              if (snapshot.data == null) {
-                return Center(
-                  child: Text("No Messages"),
-                );
-              } else {
-                return ListView.builder(
-                    reverse: true,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      //format date
-                      DateTime timestamp =
-                          DateTime.parse(snapshot.data![index].timestamp!);
-                      String formattedTime =
-                          DateFormat("hh:mm a").format(timestamp);
-                      return ChatBubble(
-                          message: snapshot.data![index].message!,
-                          isComming: snapshot.data![index].receiverId ==
-                              profileController.currentUser.value.id,
-                          time: formattedTime,
-                          status: "read",
-                          imageUrl: snapshot.data![index].imageUrl ?? "");
-                    });
-              }
-            }),
+        child: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<List<ChatModel>>(
+                  stream: chatController.getMessages(userModel.id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Error:${snapshot.error}"),
+                      );
+                    }
+                    if (snapshot.data == null) {
+                      return Center(
+                        child: Text("No Messages"),
+                      );
+                    } else {
+                      return ListView.builder(
+                          reverse: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            //format date
+                            DateTime timestamp = DateTime.parse(
+                                snapshot.data![index].timestamp!);
+                            String formattedTime =
+                                DateFormat("hh:mm a").format(timestamp);
+                            return ChatBubble(
+                                message: snapshot.data![index].message!,
+                                isComming: snapshot.data![index].receiverId ==
+                                    profileController.currentUser.value.id,
+                                time: formattedTime,
+                                status: "read",
+                                imageUrl: snapshot.data![index].imageUrl ?? "");
+                          });
+                    }
+                  }),
+            ),
+            TypeMessage(userModel: userModel),
+          ],
+        ),
       ),
     );
   }
