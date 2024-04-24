@@ -111,11 +111,6 @@ class ProfilePage extends StatelessWidget {
                                           : ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(100),
-                                              // child: Image.network(
-                                              //   profileController.currentUser
-                                              //       .value.profileImage!,
-                                              //   fit: BoxFit.cover,
-                                              // ),
                                               child: CachedNetworkImage(
                                                 imageUrl: profileController
                                                     .currentUser
