@@ -1,3 +1,4 @@
+import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/ChatRoomModel.dart';
@@ -16,6 +17,8 @@ class ChatController extends GetxController {
   ProfileController profileController = Get.put(ProfileController());
   //image show
   RxString selectedImagePath = "".obs;
+  //save contact
+  ContactController contactController = Get.put(ContactController());
 
 //this code for get cureent user id and target user id
 //user1+user2
@@ -104,6 +107,7 @@ class ChatController extends GetxController {
       await db.collection("chats").doc(roomID).set(
             roomDetails.toJson(),
           );
+      await contactController.saveContct(targetUser);
     } catch (e) {
       print(e);
     }
@@ -126,4 +130,6 @@ class ChatController extends GetxController {
                 ))
             .toList());
   }
+
+ 
 }
