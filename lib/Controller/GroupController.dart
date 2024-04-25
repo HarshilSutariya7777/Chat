@@ -1,4 +1,5 @@
 import 'package:chatapp3/Controller/ProfileController.dart';
+import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/GroupModel.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/HomePage/HomePage.dart';
@@ -11,9 +12,23 @@ class GroupController extends GetxController {
   RxList<UserModel> groupMembers = <UserModel>[].obs;
   final db = FirebaseFirestore.instance;
   var uuid = Uuid();
+  //get group
+  RxList<GroupModel> groupList = <GroupModel>[].obs;
   ProfileController profileController = Get.put(ProfileController());
   final auth = FirebaseAuth.instance;
   RxBool isLoading = false.obs;
+  RxString selectedImagePath = "".obs;
+
+  // void onInit() {
+  //   super.onInit();
+  //   getGroups();
+  // }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getGroups();
+  }
 
 //select Group Member and add into list.
   void selectMember(UserModel user) {
@@ -27,7 +42,15 @@ class GroupController extends GetxController {
   Future<void> createGroup(String groupName, String imagePath) async {
     isLoading.value = true;
     String groupId = uuid.v6();
-
+    groupMembers.add(
+      UserModel(
+        id: auth.currentUser!.uid,
+        name: profileController.currentUser.value.name,
+        profileImage: profileController.currentUser.value.profileImage,
+        email: profileController.currentUser.value.email,
+        role: "admin",
+      ),
+    );
     try {
       String imageUrl = await profileController.uploadFileToFirebase(imagePath);
 
@@ -49,5 +72,65 @@ class GroupController extends GetxController {
     } catch (e) {
       print("Error" + e.toString());
     }
+  }
+
+//get groups
+  Future<void> getGroups() async {
+    isLoading.value = true;
+    List<GroupModel> tempGroup = [];
+    await db.collection('groups').get().then((value) {
+      tempGroup = value.docs
+          .map(
+            (e) => GroupModel.fromJson(
+              e.data(),
+            ),
+          )
+          .toList();
+    });
+    groupList.clear();
+    groupList.value = tempGroup
+        .where(
+          (e) =>
+              e.members!.any((element) => element.id == auth.currentUser!.uid),
+        )
+        .toList();
+    isLoading.value = false;
+  }
+
+//send Group Message
+  Future<void> sendGroupMessage(
+      String message, String groupId, String imagePath) async {
+    String chatid = uuid.v6();
+    String imageUrl = await profileController.uploadFileToFirebase(imagePath);
+    var newChat = ChatModel(
+      id: chatid,
+      message: message,
+      imageUrl: imageUrl,
+      senderId: auth.currentUser!.uid,
+      senderName: profileController.currentUser.value.name,
+      timestamp: DateTime.now().toString(),
+    );
+
+    await db
+        .collection("groups")
+        .doc(groupId)
+        .collection("messages")
+        .doc(chatid)
+        .set(newChat.toJson());
+  }
+
+  //get group message
+  Stream<List<ChatModel>> getGroupMessages(String groupId) {
+    return db
+        .collection("groups")
+        .doc(groupId)
+        .collection("messages")
+        .orderBy("timestamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => ChatModel.fromJson(doc.data()))
+              .toList(),
+        );
   }
 }

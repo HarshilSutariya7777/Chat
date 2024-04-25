@@ -3,13 +3,10 @@ import 'dart:io';
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Controller/GroupController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
-import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 
 class GroupTitle extends StatelessWidget {
   const GroupTitle({super.key});
@@ -20,8 +17,6 @@ class GroupTitle extends StatelessWidget {
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
     RxString imagePath = "".obs;
-    RxBool isEdit = false.obs;
-    ProfileController profileController = Get.put(ProfileController());
     RxString groupName = "".obs;
     return Scaffold(
       appBar: AppBar(

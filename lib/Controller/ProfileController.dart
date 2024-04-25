@@ -62,7 +62,7 @@ class ProfileController extends GetxController {
 
   Future<String> uploadFileToFirebase(String imagePath) async {
     final path = "file/${imagePath}";
-    final file = File(imagePath!);
+    final file = File(imagePath);
     if (imagePath != "") {
       try {
         final ref = store.ref().child(path).putFile(file);

@@ -3,7 +3,6 @@ import 'package:chatapp3/Controller/AuthController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/UserProfile/Widget/ProfileUserInfo.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

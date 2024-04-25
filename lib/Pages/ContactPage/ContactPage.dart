@@ -1,4 +1,3 @@
-import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Pages/Chat/ChatPage.dart';
@@ -17,7 +16,6 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RxBool isSearchEnable = false.obs;
     ContactController contactController = Get.put(ContactController());
-    ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(

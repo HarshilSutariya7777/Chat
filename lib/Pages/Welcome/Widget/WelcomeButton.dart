@@ -11,9 +11,7 @@ class WelcomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SlideAction(
-      onSubmit: () {
-        Get.offAllNamed("/authPage");
-      },
+      onSubmit: () => Get.offAllNamed("/authPage"),
       sliderButtonIcon: Container(
         width: 25,
         height: 25,
