@@ -17,7 +17,7 @@ class LoginUserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     ProfileController profileController = Get.put(ProfileController());
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       // height: 100,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -30,7 +30,7 @@ class LoginUserInfo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 150,
                       height: 150,
                       child: ClipRRect(
@@ -39,15 +39,15 @@ class LoginUserInfo extends StatelessWidget {
                           imageUrl: profileImage,
                           fit: BoxFit.cover,
                           placeholder: (context, url) =>
-                              CircularProgressIndicator(),
+                              const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -66,17 +66,17 @@ class LoginUserInfo extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       height: 50,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Theme.of(context).colorScheme.background),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.call, color: Color(0xff039C00)),
                           SizedBox(width: 10),
@@ -89,11 +89,11 @@ class LoginUserInfo extends StatelessWidget {
                     ),
                     Container(
                       height: 50,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Theme.of(context).colorScheme.background),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(
                             Icons.video_call,
@@ -109,7 +109,7 @@ class LoginUserInfo extends StatelessWidget {
                     ),
                     Container(
                       height: 50,
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Theme.of(context).colorScheme.background),
@@ -119,7 +119,7 @@ class LoginUserInfo extends StatelessWidget {
                             Icons.chat,
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             "Chat",
                             style: TextStyle(

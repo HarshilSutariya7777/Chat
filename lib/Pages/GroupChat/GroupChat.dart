@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Config/Images.dart';
-import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/GroupController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/GroupModel.dart';

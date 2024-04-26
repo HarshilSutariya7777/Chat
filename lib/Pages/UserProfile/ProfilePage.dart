@@ -4,7 +4,6 @@ import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Pages/UserProfile/Widget/ProfileUserInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -18,13 +17,13 @@ class UserProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
         actions: [
           IconButton(
             onPressed: () {
               Get.toNamed("/updateprofile");
             },
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
           ),
         ],
       ),
@@ -37,12 +36,12 @@ class UserProfilePage extends StatelessWidget {
                     userModel.profileImage ?? Assetimage.defultprofileImage,
                 userEmail: userModel.email ?? "",
                 userName: userModel.name ?? "User"),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 authController.logoutUser();
               },
-              child: Text("Logout"),
+              child: const Text("Logout"),
             ),
           ],
         ),

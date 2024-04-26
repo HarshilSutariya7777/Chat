@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Controller/GroupController.dart';
-import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,6 @@ class GroupMemberInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfileController profileController = Get.put(ProfileController());
     GroupController groupController = Get.put(GroupController());
     return Container(
       padding: EdgeInsets.all(20),

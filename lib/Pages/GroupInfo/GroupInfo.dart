@@ -2,7 +2,6 @@ import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Model/GroupModel.dart';
 import 'package:chatapp3/Pages/GroupInfo/GroupMemberInfo.dart';
 import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
-import 'package:chatapp3/Pages/UserProfile/Widget/ProfileUserInfo.dart';
 import 'package:flutter/material.dart';
 
 class GroupInfo extends StatelessWidget {

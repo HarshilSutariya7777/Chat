@@ -1,4 +1,3 @@
-import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
