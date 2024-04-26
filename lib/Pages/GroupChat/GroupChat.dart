@@ -23,11 +23,7 @@ class GroupChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
-            onTap: () {
-              Get.to(GroupInfo(
-                groupModel: groupModel,
-              ));
-            },
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Container(
@@ -50,9 +46,9 @@ class GroupChatPage extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () {
-            // Get.to(UserProfilePage(
-            //   userModel: userModel,
-            // ));
+            Get.to(GroupInfo(
+              groupModel: groupModel,
+            ));
           },
           child: Row(
             children: [

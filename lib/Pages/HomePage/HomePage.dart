@@ -1,6 +1,7 @@
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Config/String.dart';
 import 'package:chatapp3/Controller/ContactController.dart';
+import 'package:chatapp3/Controller/StatusController.dart';
 import 'package:chatapp3/Pages/Groups/GroupsPage.dart';
 import 'package:chatapp3/Pages/HomePage/widget/Tabbar.dart';
 import 'package:chatapp3/Pages/HomePage/widget/chatlist.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     ContactController contactController = Get.put(ContactController());
+    StatusController statusController = Get.put(StatusController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
