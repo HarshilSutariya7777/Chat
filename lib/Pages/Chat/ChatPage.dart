@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Config/Images.dart';
+import 'package:chatapp3/Controller/CallController.dart';
 import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/UserModel.dart';
+import 'package:chatapp3/Pages/CallPage/AudioCallPage.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
 import 'package:chatapp3/Pages/Chat/widget/TypeMessage.dart';
 import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
@@ -21,6 +23,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
+    CallController callController = Get.put(CallController());
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -84,7 +87,11 @@ class ChatPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(AudioCallPage(target: userModel));
+              callController.callAction(
+                  userModel, profileController.currentUser.value);
+            },
             icon: Icon(Icons.phone),
           ),
           IconButton(
