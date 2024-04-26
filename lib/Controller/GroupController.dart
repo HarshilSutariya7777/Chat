@@ -19,11 +19,6 @@ class GroupController extends GetxController {
   RxBool isLoading = false.obs;
   RxString selectedImagePath = "".obs;
 
-  // void onInit() {
-  //   super.onInit();
-  //   getGroups();
-  // }
-
   @override
   void onInit() {
     super.onInit();
@@ -100,8 +95,10 @@ class GroupController extends GetxController {
 //send Group Message
   Future<void> sendGroupMessage(
       String message, String groupId, String imagePath) async {
+    isLoading.value = true;
     String chatid = uuid.v6();
-    String imageUrl = await profileController.uploadFileToFirebase(imagePath);
+    String imageUrl =
+        await profileController.uploadFileToFirebase(selectedImagePath.value);
     var newChat = ChatModel(
       id: chatid,
       message: message,
@@ -117,6 +114,8 @@ class GroupController extends GetxController {
         .collection("messages")
         .doc(chatid)
         .set(newChat.toJson());
+    selectedImagePath.value = "";
+    isLoading.value = false;
   }
 
   //get group message
@@ -132,5 +131,15 @@ class GroupController extends GetxController {
               .map((doc) => ChatModel.fromJson(doc.data()))
               .toList(),
         );
+  }
+
+  //add member in group
+  Future<void> addMemberToGroup(String groupId, UserModel user) async {
+    isLoading.value = true;
+    await db.collection("groups").doc(groupId).update({
+      "members": FieldValue.arrayUnion([user.toJson()]),
+    });
+    getGroups();
+    isLoading.value = false;
   }
 }

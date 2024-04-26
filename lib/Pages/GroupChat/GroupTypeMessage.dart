@@ -1,14 +1,11 @@
 import 'package:chatapp3/Config/Images.dart';
-import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/GroupController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
 import 'package:chatapp3/Model/GroupModel.dart';
-import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Widget/ImagePickerBottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class GroupTypeMessage extends StatelessWidget {
   final GroupModel groupModel;
@@ -16,12 +13,13 @@ class GroupTypeMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChatController chatController = Get.put(ChatController());
+    // ChatController chatController = Get.put(ChatController());
     TextEditingController messageController = TextEditingController();
     GroupController groupController = Get.put(GroupController());
     RxString message = "".obs;
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       margin: EdgeInsets.all(10),
@@ -52,7 +50,9 @@ class GroupTypeMessage extends StatelessWidget {
                 ? InkWell(
                     onTap: () {
                       ImagePickerBottomSheet(
-                          context, chatController, imagePickerController);
+                          context,
+                          groupController.selectedImagePath,
+                          imagePickerController);
                     },
                     child: Container(
                       height: 30,
@@ -67,7 +67,7 @@ class GroupTypeMessage extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Obx(() => message.value != "" ||
-                  chatController.selectedImagePath.value != ""
+                  groupController.selectedImagePath.value != ""
               ? InkWell(
                   onTap: () {
                     groupController.sendGroupMessage(
@@ -78,7 +78,7 @@ class GroupTypeMessage extends StatelessWidget {
                   child: Container(
                     width: 30,
                     height: 30,
-                    child: chatController.isLoading.value
+                    child: groupController.isLoading.value
                         ? CircularProgressIndicator()
                         : SvgPicture.asset(
                             Assetimage.chatSendSVG,

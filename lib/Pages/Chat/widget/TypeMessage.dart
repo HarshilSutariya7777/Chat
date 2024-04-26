@@ -6,7 +6,6 @@ import 'package:chatapp3/Widget/ImagePickerBottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class TypeMessage extends StatelessWidget {
   final UserModel userModel;
@@ -49,7 +48,9 @@ class TypeMessage extends StatelessWidget {
                 ? InkWell(
                     onTap: () {
                       ImagePickerBottomSheet(
-                          context, chatController, imagePickerController);
+                          context,
+                          chatController.selectedImagePath,
+                          imagePickerController);
                     },
                     child: Container(
                       height: 30,

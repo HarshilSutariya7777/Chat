@@ -7,6 +7,7 @@ import 'package:chatapp3/Controller/ProfileController.dart';
 import 'package:chatapp3/Model/GroupModel.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
 import 'package:chatapp3/Pages/GroupChat/GroupTypeMessage.dart';
+import 'package:chatapp3/Pages/GroupInfo/GroupInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -17,16 +18,15 @@ class GroupChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChatController chatController = Get.put(ChatController());
     GroupController groupController = Get.put(GroupController());
     ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
             onTap: () {
-              // Get.to(UserProfilePage(
-              //   userModel: userModel,
-              // ));
+              Get.to(GroupInfo(
+                groupModel: groupModel,
+              ));
             },
             child: Padding(
               padding: const EdgeInsets.all(5),
@@ -129,7 +129,7 @@ class GroupChatPage extends StatelessWidget {
                     },
                   ),
                   Obx(
-                    () => (chatController.selectedImagePath.value != "")
+                    () => (groupController.selectedImagePath.value != "")
                         ? Positioned(
                             bottom: 0,
                             left: 0,
@@ -145,7 +145,7 @@ class GroupChatPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15),
                                       image: DecorationImage(
                                         image: FileImage(
-                                          File(chatController
+                                          File(groupController
                                               .selectedImagePath.value),
                                         ),
                                         fit: BoxFit.contain,
@@ -156,7 +156,7 @@ class GroupChatPage extends StatelessWidget {
                                   right: 0,
                                   child: IconButton(
                                     onPressed: () {
-                                      chatController.selectedImagePath.value =
+                                      groupController.selectedImagePath.value =
                                           "";
                                     },
                                     icon: Icon(Icons.close),
