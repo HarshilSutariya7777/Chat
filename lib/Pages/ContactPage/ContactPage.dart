@@ -67,9 +67,6 @@ class ContactPage extends StatelessWidget {
                       (e) => InkWell(
                         onTap: () {
                           Get.to(ChatPage(userModel: e));
-                          //Get.toNamed("/chatPage", arguments: e);
-                          // String roomID = chatController.getRoomId(e.id!);
-                          // print(roomID);
                         },
                         child: ChatTile(
                           imageUrl:
