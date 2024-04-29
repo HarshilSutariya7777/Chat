@@ -1,6 +1,5 @@
 import 'package:chatapp3/Config/PagePath.dart';
 import 'package:chatapp3/Config/Theme.dart';
-import 'package:chatapp3/Controller/CallController.dart';
 import 'package:chatapp3/Pages/SpleshScreen/SpleshScreen.dart';
 import 'package:chatapp3/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    CallController callController = Get.put(CallController());
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: lightTheme,
