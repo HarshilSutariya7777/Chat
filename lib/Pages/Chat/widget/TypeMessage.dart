@@ -18,6 +18,7 @@ class TypeMessage extends StatelessWidget {
     RxString message = "".obs;
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       margin: EdgeInsets.all(10),
