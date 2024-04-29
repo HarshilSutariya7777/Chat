@@ -22,6 +22,7 @@ class AudioCallPage extends StatelessWidget {
       userName: profileController.currentUser.value.name ?? "root",
       callID: callId,
       config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall(),
+      
     );
   }
 }

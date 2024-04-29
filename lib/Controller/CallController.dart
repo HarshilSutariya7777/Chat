@@ -13,13 +13,13 @@ class CallController extends GetxController {
   final auth = FirebaseAuth.instance;
   final uuid = Uuid().v4();
 
+  @override
   void onInit() {
     super.onInit();
-
     getCallNotification().listen((List<CallModel> callList) {
       if (callList.isNotEmpty) {
         var callData = callList[0];
-        if (callData.status == "audio") {
+        if (callData.type == "audio") {
           audioCallNotification(callData);
         } else if (callData.type == "video") {
           videoCallNotification(callData);
@@ -105,14 +105,18 @@ class CallController extends GetxController {
 
   //get Notification
   Stream<List<CallModel>> getCallNotification() {
-    return FirebaseFirestore.instance
-        .collection("notification")
-        .doc(auth.currentUser!.uid)
-        .collection("call")
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => CallModel.fromJson(doc.data()))
-            .toList());
+    if (auth.currentUser != null) {
+      return db
+          .collection("notification")
+          .doc(auth.currentUser!.uid)
+          .collection("call")
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) => CallModel.fromJson(doc.data()))
+              .toList());
+    } else {
+      return Stream.value([]);
+    }
   }
 
   //when call end that time delete call

@@ -56,7 +56,7 @@ class CallModel {
       status = json["status"];
     }
     if (json["type"] is String) {
-      status = json["type"];
+      type = json["type"];
     }
   }
 
@@ -72,7 +72,7 @@ class CallModel {
     _data["receiverUid"] = receiverUid;
     _data["receiverEmail"] = receiverEmail;
     _data["status"] = status;
-    _data["type"] = status;
+    _data["type"] = type;
     return _data;
   }
 }
