@@ -6,6 +6,7 @@ import 'package:chatapp3/Pages/HomePage/HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class GroupController extends GetxController {
@@ -37,6 +38,8 @@ class GroupController extends GetxController {
   Future<void> createGroup(String groupName, String imagePath) async {
     isLoading.value = true;
     String groupId = uuid.v6();
+    DateTime timestamp = DateTime.now();
+    String nowTime = DateFormat("hh:mm a").format(timestamp);
     groupMembers.add(
       UserModel(
         id: auth.currentUser!.uid,
@@ -55,9 +58,9 @@ class GroupController extends GetxController {
           "name": groupName,
           "profileUrl": imageUrl,
           "members": groupMembers.map((e) => e.toJson()).toList(),
-          "createdAt": DateTime.now().toString(),
+          "createdAt": nowTime,
           "createdBy": auth.currentUser!.uid,
-          "timeStamp": DateTime.now().toString(),
+          "timeStamp": nowTime,
         },
       );
       //group created tost

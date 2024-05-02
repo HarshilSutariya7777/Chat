@@ -25,7 +25,7 @@ class GroupPage extends StatelessWidget {
                       : group.profileUrl!,
                   name: group.name!,
                   lastChat: "Group Created",
-                  lastTime: "Just Now",
+                  lastTime: group.timeStamp!,
                 ),
               ),
             )

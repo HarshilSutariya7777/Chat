@@ -73,52 +73,59 @@ class GroupMemberInfo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Theme.of(context).colorScheme.background),
-                      child: Row(
-                        children: [
-                          Icon(Icons.call, color: Color(0xff039C00)),
-                          SizedBox(width: 10),
-                          Text(
-                            "Call",
-                            style: TextStyle(color: Color(0xff039C00)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Theme.of(context).colorScheme.background),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.video_call,
-                            color: Color(0xffFF9900),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Video",
-                            style: TextStyle(color: Color(0xffFF9900)),
-                          ),
-                        ],
+                    InkWell(
+                      onTap: () {
+                        Get.snackbar("Annoucement", "Comming soon...",
+                            backgroundColor: Colors.deepPurpleAccent);
+                      },
+                      child: Container(
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Theme.of(context).colorScheme.background),
+                        child: Row(
+                          children: [
+                            Icon(Icons.call, color: Color(0xff039C00)),
+                            SizedBox(width: 10),
+                            Text(
+                              "Call",
+                              style: TextStyle(color: Color(0xff039C00)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     InkWell(
                       onTap: () {
-                        var newMember = UserModel(
-                          email: "Harshil@gmail.com",
-                          name: "Harshil",
-                          profileImage: "",
-                          role: "admin",
-                        );
-                        groupController.addMemberToGroup(groupId, newMember);
+                        Get.snackbar("Annoucement", "Comming soon...",
+                            backgroundColor: Colors.deepPurpleAccent);
+                      },
+                      child: Container(
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Theme.of(context).colorScheme.background),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.video_call,
+                              color: Color(0xffFF9900),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "Video",
+                              style: TextStyle(color: Color(0xffFF9900)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.snackbar("Annoucement", "Comming soon...",
+                            backgroundColor: Colors.deepPurpleAccent);
                       },
                       child: Container(
                         height: 50,
