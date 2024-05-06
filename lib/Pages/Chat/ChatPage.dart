@@ -184,11 +184,9 @@ class ChatPage extends StatelessWidget {
                                   child:
                                       chatController.selectedVideoPath.value !=
                                               ""
-                                          ? AspectRatio(
-                                              aspectRatio: 16 / 9,
-                                              child: VideoPlayerWidget(
-                                                  videoPath: chatController
-                                                      .selectedVideoPath.value))
+                                          ? VideoPlayerWidget(
+                                              videoPath: chatController
+                                                  .selectedVideoPath.value)
                                           : Image.file(
                                               File(chatController
                                                   .selectedImagePath.value),

@@ -19,6 +19,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
         CachedVideoPlayerController.network(widget.videoPath)
           ..initialize().then((value) {
             videoPlayerController.setVolume(1);
+            videoPlayerController.setLooping(true);
           });
   }
 
@@ -31,7 +32,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 16 / 9,
+      aspectRatio: 16 / 20,
       child: Stack(children: [
         CachedVideoPlayer(videoPlayerController),
         Align(
