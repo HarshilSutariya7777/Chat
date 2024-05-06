@@ -1,10 +1,15 @@
 import 'package:chatapp3/Controller/ImagePickerController.dart';
+import 'package:chatapp3/Controller/VideoPickerController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<dynamic> ImagePickerBottomSheet(BuildContext context, RxString imagePath,
-    ImagePickerController imagePickerController) {
+Future<dynamic> ImagePickerBottomSheet(
+    BuildContext context,
+    RxString imagePath,
+    RxString videoPath,
+    ImagePickerController imagePickerController,
+    VideoPickerController videoPickerController) {
   return Get.bottomSheet(
     Container(
       height: 150,
@@ -57,7 +62,11 @@ Future<dynamic> ImagePickerBottomSheet(BuildContext context, RxString imagePath,
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              videoPath.value = await videoPickerController.pickVideo();
+              print("video path:$videoPath");
+              Get.back();
+            },
             child: Container(
               height: 70,
               width: 70,

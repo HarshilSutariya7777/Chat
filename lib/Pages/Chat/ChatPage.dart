@@ -12,9 +12,11 @@ import 'package:chatapp3/Pages/CallPage/VideoCallPage.dart';
 import 'package:chatapp3/Pages/Chat/widget/ChatBubble.dart';
 import 'package:chatapp3/Pages/Chat/widget/TypeMessage.dart';
 import 'package:chatapp3/Pages/UserProfile/ProfilePage.dart';
+import 'package:chatapp3/Pages/VideoPlayer/Videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:video_player/video_player.dart';
 
 class ChatPage extends StatelessWidget {
   final UserModel userModel;
@@ -25,6 +27,7 @@ class ChatPage extends StatelessWidget {
     ChatController chatController = Get.put(ChatController());
     ProfileController profileController = Get.put(ProfileController());
     CallController callController = Get.put(CallController());
+    print("video" + chatController.selectedVideoPath.value);
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -142,19 +145,21 @@ class ChatPage extends StatelessWidget {
                               String formattedTime =
                                   DateFormat("hh:mm a").format(timestamp);
                               return ChatBubble(
-                                  message: snapshot.data![index].message!,
-                                  isComming: snapshot.data![index].receiverId ==
-                                      profileController.currentUser.value.id,
-                                  time: formattedTime,
-                                  status: "read",
-                                  imageUrl:
-                                      snapshot.data![index].imageUrl ?? "");
+                                message: snapshot.data![index].message!,
+                                isComming: snapshot.data![index].receiverId ==
+                                    profileController.currentUser.value.id,
+                                time: formattedTime,
+                                status: "read",
+                                imageUrl: snapshot.data![index].imageUrl ?? "",
+                                vidoUrl: snapshot.data![index].videoUrl ?? "",
+                              );
                             });
                       }
                     },
                   ),
                   Obx(
-                    () => (chatController.selectedImagePath.value != "")
+                    () => (chatController.selectedImagePath.value != "" ||
+                            chatController.selectedVideoPath.value != "")
                         ? Positioned(
                             bottom: 0,
                             left: 0,
@@ -164,17 +169,31 @@ class ChatPage extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.only(bottom: 10),
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      borderRadius: BorderRadius.circular(15),
-                                      image: DecorationImage(
-                                        image: FileImage(
-                                          File(chatController
-                                              .selectedImagePath.value),
-                                        ),
-                                        fit: BoxFit.contain,
-                                      )),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                    borderRadius: BorderRadius.circular(15),
+                                    // image: DecorationImage(
+                                    //   image: FileImage(
+                                    //     File(chatController
+                                    //         .selectedImagePath.value),
+                                    //   ),
+                                    //   fit: BoxFit.contain,
+                                    // ),
+                                  ),
+                                  child:
+                                      chatController.selectedVideoPath.value !=
+                                              ""
+                                          ? AspectRatio(
+                                              aspectRatio: 16 / 9,
+                                              child: VideoPlayerWidget(
+                                                  videoPath: chatController
+                                                      .selectedVideoPath.value))
+                                          : Image.file(
+                                              File(chatController
+                                                  .selectedImagePath.value),
+                                              fit: BoxFit.contain,
+                                            ),
                                   height: 500,
                                 ),
                                 Positioned(
@@ -182,6 +201,8 @@ class ChatPage extends StatelessWidget {
                                   child: IconButton(
                                     onPressed: () {
                                       chatController.selectedImagePath.value =
+                                          "";
+                                      chatController.selectedVideoPath.value =
                                           "";
                                     },
                                     icon: Icon(Icons.close),

@@ -12,4 +12,13 @@ class ImagePickerController extends GetxController {
       return "";
     }
   }
+
+  // Future<String> pickVideo() async {
+  //   final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
+  //   if (video != null) {
+  //     return video.path;
+  //   } else {
+  //     return "";
+  //   }
+  // }
 }

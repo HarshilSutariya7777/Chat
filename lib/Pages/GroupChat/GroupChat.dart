@@ -103,23 +103,25 @@ class GroupChatPage extends StatelessWidget {
                         );
                       } else {
                         return ListView.builder(
-                            reverse: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              //format date
-                              DateTime timestamp = DateTime.parse(
-                                  snapshot.data![index].timestamp!);
-                              String formattedTime =
-                                  DateFormat("hh:mm a").format(timestamp);
-                              return ChatBubble(
-                                  message: snapshot.data![index].message!,
-                                  isComming: snapshot.data![index].senderId !=
-                                      profileController.currentUser.value.id,
-                                  time: formattedTime,
-                                  status: "read",
-                                  imageUrl:
-                                      snapshot.data![index].imageUrl ?? "");
-                            });
+                          reverse: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            //format date
+                            DateTime timestamp = DateTime.parse(
+                                snapshot.data![index].timestamp!);
+                            String formattedTime =
+                                DateFormat("hh:mm a").format(timestamp);
+                            return ChatBubble(
+                              message: snapshot.data![index].message!,
+                              isComming: snapshot.data![index].senderId !=
+                                  profileController.currentUser.value.id,
+                              time: formattedTime,
+                              status: "read",
+                              imageUrl: snapshot.data![index].imageUrl ?? "",
+                              vidoUrl: snapshot.data![index].videoUrl ?? "",
+                            );
+                          },
+                        );
                       }
                     },
                   ),

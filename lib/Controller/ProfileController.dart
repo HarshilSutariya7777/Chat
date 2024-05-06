@@ -77,4 +77,23 @@ class ProfileController extends GetxController {
     }
     return "";
   }
+
+  Future<String> uploadVideoToFirebase(String videoPath) async {
+    final path = "videos/${videoPath}";
+    final file = File(videoPath);
+
+    if (videoPath != "") {
+      try {
+        final ref = store.ref().child(path).putFile(file);
+        final uploadTask = await ref.whenComplete(() {});
+        final downloadVideoUrl = await uploadTask.ref.getDownloadURL();
+        print(downloadVideoUrl);
+        return downloadVideoUrl;
+      } catch (e) {
+        print(e);
+        return "";
+      }
+    }
+    return "";
+  }
 }

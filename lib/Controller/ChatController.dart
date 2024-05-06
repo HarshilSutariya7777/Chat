@@ -17,6 +17,8 @@ class ChatController extends GetxController {
   ProfileController profileController = Get.put(ProfileController());
   //image show
   RxString selectedImagePath = "".obs;
+  //video show
+  RxString selectedVideoPath = "".obs;
   //save contact
   ContactController contactController = Get.put(ContactController());
 
@@ -75,10 +77,17 @@ class ChatController extends GetxController {
       imageUrl.value =
           await profileController.uploadFileToFirebase(selectedImagePath.value);
     }
+    RxString videoUrl = "".obs;
+    if (selectedVideoPath.value.isNotEmpty) {
+      videoUrl.value = await profileController
+          .uploadVideoToFirebase(selectedVideoPath.value);
+    }
+    print("video url:$videoUrl");
     var newChat = ChatModel(
       id: chatid,
       message: message,
       imageUrl: imageUrl.value,
+      videoUrl: videoUrl.value,
       senderId: auth.currentUser!.uid,
       receiverId: targetUserId,
       senderName: profileController.currentUser.value.name,
@@ -104,6 +113,7 @@ class ChatController extends GetxController {
             newChat.toJson(),
           );
       selectedImagePath.value = "";
+      selectedVideoPath.value = "";
       await db.collection("chats").doc(roomID).set(
             roomDetails.toJson(),
           );

@@ -1,6 +1,7 @@
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Controller/ChatController.dart';
 import 'package:chatapp3/Controller/ImagePickerController.dart';
+import 'package:chatapp3/Controller/VideoPickerController.dart';
 import 'package:chatapp3/Model/UserModel.dart';
 import 'package:chatapp3/Widget/ImagePickerBottomsheet.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class TypeMessage extends StatelessWidget {
     RxString message = "".obs;
     ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
+    VideoPickerController videoPickerController =
+        Get.put(VideoPickerController());
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -45,13 +48,16 @@ class TypeMessage extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Obx(
-            () => chatController.selectedImagePath.value == ""
+            () => chatController.selectedImagePath.value == "" &&
+                    chatController.selectedVideoPath.value == ""
                 ? InkWell(
                     onTap: () {
                       ImagePickerBottomSheet(
                           context,
                           chatController.selectedImagePath,
-                          imagePickerController);
+                          chatController.selectedVideoPath,
+                          imagePickerController,
+                          videoPickerController);
                     },
                     child: Container(
                       height: 30,
@@ -66,11 +72,13 @@ class TypeMessage extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Obx(() => message.value != "" ||
-                  chatController.selectedImagePath.value != ""
+                  chatController.selectedImagePath.value != "" ||
+                  chatController.selectedVideoPath.value != ""
               ? InkWell(
                   onTap: () {
                     if (messageController.text.isNotEmpty ||
-                        chatController.selectedImagePath.value.isNotEmpty) {
+                        chatController.selectedImagePath.value.isNotEmpty ||
+                        chatController.selectedVideoPath.value.isNotEmpty) {
                       chatController.sendMessage(
                           userModel.id!, messageController.text, userModel);
                       messageController.clear();

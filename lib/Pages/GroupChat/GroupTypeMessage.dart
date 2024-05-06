@@ -49,10 +49,10 @@ class GroupTypeMessage extends StatelessWidget {
             () => groupController.selectedImagePath.value == ""
                 ? InkWell(
                     onTap: () {
-                      ImagePickerBottomSheet(
-                          context,
-                          groupController.selectedImagePath,
-                          imagePickerController);
+                      // ImagePickerBottomSheet(
+                      //     context,
+                      //     groupController.selectedImagePath,
+                      //     imagePickerController);
                     },
                     child: Container(
                       height: 30,

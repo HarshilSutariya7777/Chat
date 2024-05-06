@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Config/Images.dart';
+import 'package:chatapp3/Pages/VideoPlayer/Videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,13 +10,15 @@ class ChatBubble extends StatelessWidget {
   final String time;
   final String status;
   final String imageUrl;
+  final String vidoUrl;
   const ChatBubble(
       {super.key,
       required this.message,
       required this.isComming,
       required this.time,
       required this.status,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.vidoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +48,28 @@ class ChatBubble extends StatelessWidget {
                       bottomRight: Radius.circular(0),
                     ),
             ),
-            child: imageUrl == ""
-                ? Text(message)
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+            child: vidoUrl.isNotEmpty
+                ? VideoPlayerWidget(videoPath: vidoUrl)
+                : imageUrl == ""
+                    ? Text(message)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
-                        ),
-                        message == "" ? Container() : SizedBox(height: 10),
-                        message == "" ? Container() : Text(message),
-                      ]),
+                          message == "" ? Container() : SizedBox(height: 10),
+                          message == "" ? Container() : Text(message),
+                        ],
+                      ),
           ),
           SizedBox(height: 10),
           Row(
