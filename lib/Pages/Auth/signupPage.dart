@@ -14,37 +14,37 @@ class SignUpForm extends StatelessWidget {
     TextEditingController password = TextEditingController();
     return Column(
       children: [
-        SizedBox(height: 40),
+        const SizedBox(height: 40),
         TextField(
           controller: name,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               hintText: "Full Name",
               prefixIcon: Icon(
                 Icons.person,
               )),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextField(
           controller: email,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               hintText: "Email",
               prefixIcon: Icon(
                 Icons.alternate_email_rounded,
               )),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextField(
           controller: password,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               hintText: "Password",
               prefixIcon: Icon(
                 Icons.password_outlined,
               )),
         ),
-        SizedBox(height: 60),
+        const SizedBox(height: 60),
         Obx(
           () => authController.isLoading.value
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

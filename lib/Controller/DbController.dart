@@ -9,6 +9,7 @@ class DbController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<UserModel> userList = <UserModel>[].obs;
 
+  @override
   void onInit() async {
     super.onInit();
     await getUserList();

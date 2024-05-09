@@ -14,6 +14,7 @@ class ProfileController extends GetxController {
 
   Rx<UserModel> currentUser = UserModel().obs;
 
+  @override
   void onInit() async {
     super.onInit();
     await getUserDetails();
@@ -61,7 +62,7 @@ class ProfileController extends GetxController {
   }
 
   Future<String> uploadFileToFirebase(String imagePath) async {
-    final path = "file/${imagePath}";
+    final path = "file/$imagePath";
     final file = File(imagePath);
     if (imagePath != "") {
       try {
@@ -79,7 +80,7 @@ class ProfileController extends GetxController {
   }
 
   Future<String> uploadVideoToFirebase(String videoPath) async {
-    final path = "videos/${videoPath}";
+    final path = "videos/$videoPath";
     final file = File(videoPath);
 
     if (videoPath != "") {

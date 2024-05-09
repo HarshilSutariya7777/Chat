@@ -14,7 +14,7 @@ class ChatController extends GetxController {
   final auth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
   RxBool isLoading = false.obs;
-  var uuid = Uuid();
+  var uuid = const Uuid();
   ProfileController profileController = Get.put(ProfileController());
   //image show
   RxString selectedImagePath = "".obs;

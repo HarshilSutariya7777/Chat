@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chatapp3/Controller/GroupController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +16,8 @@ class GroupMemberInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GroupController groupController = Get.put(GroupController());
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       // height: 100,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -32,7 +30,7 @@ class GroupMemberInfo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 150,
                       height: 150,
                       child: ClipRRect(
@@ -41,15 +39,15 @@ class GroupMemberInfo extends StatelessWidget {
                           imageUrl: profileImage,
                           fit: BoxFit.cover,
                           placeholder: (context, url) =>
-                              CircularProgressIndicator(),
+                              const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -68,7 +66,7 @@ class GroupMemberInfo extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -79,11 +77,11 @@ class GroupMemberInfo extends StatelessWidget {
                       },
                       child: Container(
                         height: 50,
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Theme.of(context).colorScheme.background),
-                        child: Row(
+                        child: const Row(
                           children: [
                             Icon(Icons.call, color: Color(0xff039C00)),
                             SizedBox(width: 10),
@@ -102,11 +100,11 @@ class GroupMemberInfo extends StatelessWidget {
                       },
                       child: Container(
                         height: 50,
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Theme.of(context).colorScheme.background),
-                        child: Row(
+                        child: const Row(
                           children: [
                             Icon(
                               Icons.video_call,
@@ -128,7 +126,7 @@ class GroupMemberInfo extends StatelessWidget {
                       },
                       child: Container(
                         height: 50,
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Theme.of(context).colorScheme.background),
@@ -138,7 +136,7 @@ class GroupMemberInfo extends StatelessWidget {
                               Icons.add_circle_outline,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
                               "Add",
                               style: TextStyle(

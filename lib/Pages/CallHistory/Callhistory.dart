@@ -1,6 +1,6 @@
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Controller/ChatController.dart';
-import 'package:chatapp3/Pages/HomePage/widget/ChatTile.dart';
+import 'package:chatapp3/Pages/CallHistory/callHistoryTile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,17 +17,19 @@ class CallHistory extends StatelessWidget {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              return ChatTile(
-                  imageUrl: snapshot.data![index].callerPic ??
-                      Assetimage.defultprofileImage,
-                  name: snapshot.data![index].callerName ?? "...",
-                  lastChat: snapshot.data![index].time ?? "",
-                  lastTime: "");
+              bool isAudioCall = snapshot.data![index].type == 'audio';
+              return CallHistoryTile(
+                imageUrl: snapshot.data![index].callerPic ??
+                    Assetimage.defultprofileImage,
+                name: snapshot.data![index].callerName ?? "...",
+                lastChat: snapshot.data![index].time ?? "",
+                icon: isAudioCall ? Icons.call : Icons.video_call,
+              );
             },
           );
         } else {
-          return Center(
-              child: Container(
+          return const Center(
+              child: SizedBox(
             width: 200,
             height: 200,
             child: CircularProgressIndicator(),

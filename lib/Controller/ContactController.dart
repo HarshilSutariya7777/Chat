@@ -12,6 +12,7 @@ class ContactController extends GetxController {
   RxList<UserModel> userList = <UserModel>[].obs;
   RxList<ChatRoomModel> chatRoomList = <ChatRoomModel>[].obs;
 
+  @override
   void onInit() async {
     super.onInit();
     await getUserList();

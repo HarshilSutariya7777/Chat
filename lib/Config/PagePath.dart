@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 var pagePath = [
   GetPage(
     name: "/authPage",
-    page: () => AuthPage(),
+    page: () => const AuthPage(),
     transition: Transition.rightToLeft,
   ),
   GetPage(
     name: "/homePage",
-    page: () => HomePage(),
+    page: () => const HomePage(),
     transition: Transition.rightToLeft,
   ),
   // GetPage(

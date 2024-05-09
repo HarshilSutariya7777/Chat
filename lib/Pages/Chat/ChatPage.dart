@@ -36,7 +36,7 @@ class ChatPage extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(5),
-              child: Container(
+              child: SizedBox(
                   width: 50,
                   height: 50,
                   child: ClipRRect(
@@ -46,8 +46,9 @@ class ChatPage extends StatelessWidget {
                           Assetimage.defultprofileImage,
                       fit: BoxFit.cover,
                       placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   )),
             )),
@@ -70,7 +71,7 @@ class ChatPage extends StatelessWidget {
                   stream: chatController.getStatus(userModel.id!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text(".........");
+                      return const Text(".........");
                     } else {
                       return Text(
                         snapshot.data!.status ?? "",
@@ -94,7 +95,7 @@ class ChatPage extends StatelessWidget {
               callController.callAction(
                   userModel, profileController.currentUser.value, "audio");
             },
-            icon: Icon(Icons.phone),
+            icon: const Icon(Icons.phone),
           ),
           IconButton(
             onPressed: () {
@@ -102,14 +103,15 @@ class ChatPage extends StatelessWidget {
               callController.callAction(
                   userModel, profileController.currentUser.value, "video");
             },
-            icon: Icon(Icons.video_call),
+            icon: const Icon(Icons.video_call),
           ),
         ],
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: TypeMessage(userModel: userModel),
       body: Padding(
-        padding: EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
+        padding:
+            const EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
         child: Column(
           children: [
             Expanded(
@@ -119,7 +121,7 @@ class ChatPage extends StatelessWidget {
                     stream: chatController.getMessages(userModel.id!),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
@@ -129,7 +131,7 @@ class ChatPage extends StatelessWidget {
                         );
                       }
                       if (snapshot.data == null) {
-                        return Center(
+                        return const Center(
                           child: Text("No Messages"),
                         );
                       } else {
@@ -165,7 +167,7 @@ class ChatPage extends StatelessWidget {
                             child: Stack(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(bottom: 10),
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -179,6 +181,7 @@ class ChatPage extends StatelessWidget {
                                     //   fit: BoxFit.contain,
                                     // ),
                                   ),
+                                  height: 500,
                                   child:
                                       chatController.selectedVideoPath.value !=
                                               ""
@@ -190,7 +193,6 @@ class ChatPage extends StatelessWidget {
                                                   .selectedImagePath.value),
                                               fit: BoxFit.contain,
                                             ),
-                                  height: 500,
                                 ),
                                 Positioned(
                                   right: 0,
@@ -201,7 +203,7 @@ class ChatPage extends StatelessWidget {
                                       chatController.selectedVideoPath.value =
                                           "";
                                     },
-                                    icon: Icon(Icons.close),
+                                    icon: const Icon(Icons.close),
                                   ),
                                 ),
                               ],

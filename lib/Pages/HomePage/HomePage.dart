@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: TabBarView(controller: tabController, children: [
+        child: TabBarView(controller: tabController, children: const [
           ChatList(),
           GroupPage(),
           CallHistory(),

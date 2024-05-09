@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 class GroupController extends GetxController {
   RxList<UserModel> groupMembers = <UserModel>[].obs;
   final db = FirebaseFirestore.instance;
-  var uuid = Uuid();
+  var uuid = const Uuid();
   //get group
   RxList<GroupModel> groupList = <GroupModel>[].obs;
   ProfileController profileController = Get.put(ProfileController());
@@ -65,7 +65,7 @@ class GroupController extends GetxController {
       );
       //group created tost
       Get.snackbar("Group Created", "Group Created Successfully");
-      Get.offAll(HomePage());
+      Get.offAll(const HomePage());
       isLoading.value = false;
     } catch (e) {
       print("Error" + e.toString());

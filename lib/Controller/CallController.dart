@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 class CallController extends GetxController {
   final db = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
-  final uuid = Uuid().v4();
+  final uuid = const Uuid().v4();
 
   @override
   void onInit() {
@@ -31,11 +31,11 @@ class CallController extends GetxController {
 
   Future<void> audioCallNotification(CallModel callData) async {
     Get.snackbar(callData.callerName!, "Incoming Audio Call",
-        duration: Duration(days: 1),
+        duration: const Duration(days: 1),
         barBlur: 0,
         isDismissible: false,
         backgroundColor: Colors.grey[900]!,
-        icon: Icon(Icons.call), onTap: (snack) {
+        icon: const Icon(Icons.call), onTap: (snack) {
       Get.back();
       Get.to(
         AudioCallPage(
@@ -53,7 +53,7 @@ class CallController extends GetxController {
             endCall(callData);
             Get.back();
           },
-          child: Text("End Call"),
+          child: const Text("End Call"),
         ));
   }
 
@@ -62,7 +62,7 @@ class CallController extends GetxController {
       UserModel reciver, UserModel caller, String type) async {
     String id = uuid;
     DateTime timestamp = DateTime.now();
-    String nowTime = DateFormat("hh:mm a").format(timestamp);
+    String nowTime = DateFormat("dd-MM, hh:mm a").format(timestamp);
     var newCall = CallModel(
       id: id,
       callerName: caller.name,
@@ -76,7 +76,7 @@ class CallController extends GetxController {
       status: "Dialing",
       type: type,
       time: nowTime,
-      timestamp: DateTime.now().toString(),
+      timestamp: nowTime,
     );
 
     try {
@@ -101,7 +101,7 @@ class CallController extends GetxController {
           .collection("calls")
           .doc(id)
           .set(newCall.toJson());
-      Future.delayed(Duration(seconds: 20), () {
+      Future.delayed(const Duration(seconds: 20), () {
         endCall(newCall);
       });
     } catch (e) {
@@ -141,11 +141,11 @@ class CallController extends GetxController {
 
   void videoCallNotification(CallModel callData) {
     Get.snackbar(callData.callerName!, "Incoming Video Call",
-        duration: Duration(days: 1),
+        duration: const Duration(days: 1),
         barBlur: 0,
         isDismissible: false,
         backgroundColor: Colors.grey[900]!,
-        icon: Icon(Icons.video_call), onTap: (snack) {
+        icon: const Icon(Icons.video_call), onTap: (snack) {
       Get.back();
       Get.to(
         VideoCallPage(
@@ -163,7 +163,7 @@ class CallController extends GetxController {
             endCall(callData);
             Get.back();
           },
-          child: Text("End Call"),
+          child: const Text("End Call"),
         ));
   }
 }

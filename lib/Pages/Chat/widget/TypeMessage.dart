@@ -23,30 +23,30 @@ class TypeMessage extends StatelessWidget {
         Get.put(VideoPickerController());
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      margin: EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
           color: Theme.of(context).colorScheme.primaryContainer),
       child: Row(
         children: [
-          Container(
+          const SizedBox(
             height: 30,
             width: 30,
             child: Icon(Icons.emoji_emotions_outlined),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: TextField(
               onChanged: (value) {
                 message.value = value;
               },
               controller: messageController,
-              decoration:
-                  InputDecoration(filled: false, hintText: "Type message ..."),
+              decoration: const InputDecoration(
+                  filled: false, hintText: "Type message ..."),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Obx(
             () => chatController.selectedImagePath.value == "" &&
                     chatController.selectedVideoPath.value == ""
@@ -59,7 +59,7 @@ class TypeMessage extends StatelessWidget {
                           imagePickerController,
                           videoPickerController);
                     },
-                    child: Container(
+                    child: SizedBox(
                       height: 30,
                       width: 30,
                       child: SvgPicture.asset(
@@ -68,9 +68,9 @@ class TypeMessage extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Obx(() => message.value != "" ||
                   chatController.selectedImagePath.value != "" ||
                   chatController.selectedVideoPath.value != ""
@@ -85,11 +85,11 @@ class TypeMessage extends StatelessWidget {
                       message.value = "";
                     }
                   },
-                  child: Container(
+                  child: SizedBox(
                     width: 30,
                     height: 30,
                     child: chatController.isLoading.value
-                        ? CircularProgressIndicator()
+                        ? const CircularProgressIndicator()
                         : SvgPicture.asset(
                             Assetimage.chatSendSVG,
                             width: 25,

@@ -6,7 +6,11 @@ class ContactSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.primaryContainer,
+      ),
       child: Row(children: [
         Expanded(
           child: TextField(
@@ -14,17 +18,13 @@ class ContactSearch extends StatelessWidget {
             onSubmitted: (value) {
               print(value);
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Search Contact",
               prefixIcon: Icon(Icons.search),
             ),
           ),
         )
       ]),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.primaryContainer,
-      ),
     );
   }
 }
