@@ -3,6 +3,7 @@ import 'package:chatapp3/Config/String.dart';
 import 'package:chatapp3/Controller/CallController.dart';
 import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Controller/StatusController.dart';
+import 'package:chatapp3/Pages/CallHistory/Callhistory.dart';
 import 'package:chatapp3/Pages/Groups/GroupsPage.dart';
 import 'package:chatapp3/Pages/HomePage/widget/Tabbar.dart';
 import 'package:chatapp3/Pages/HomePage/widget/chatlist.dart';
@@ -67,13 +68,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: TabBarView(controller: tabController, children: [
           ChatList(),
           GroupPage(),
-          ListView(
-            children: const [
-              ListTile(
-                title: Text("Name Harshil"),
-              ),
-            ],
-          ),
+          CallHistory(),
         ]),
       ),
     );

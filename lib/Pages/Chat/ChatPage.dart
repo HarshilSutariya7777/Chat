@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp3/Config/Images.dart';
 import 'package:chatapp3/Controller/CallController.dart';
@@ -16,7 +15,6 @@ import 'package:chatapp3/Pages/VideoPlayer/Videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:video_player/video_player.dart';
 
 class ChatPage extends StatelessWidget {
   final UserModel userModel;

@@ -1,5 +1,6 @@
 import 'package:chatapp3/Controller/ContactController.dart';
 import 'package:chatapp3/Controller/ProfileController.dart';
+import 'package:chatapp3/Model/AudioCall.dart';
 import 'package:chatapp3/Model/ChatModel.dart';
 import 'package:chatapp3/Model/ChatRoomModel.dart';
 import 'package:chatapp3/Model/UserModel.dart';
@@ -146,5 +147,22 @@ class ChatController extends GetxController {
     return db.collection("users").doc(uid).snapshots().map((event) {
       return UserModel.fromJson(event.data()!);
     });
+  }
+
+  //Getcalles List
+  Stream<List<CallModel>> getCalls() {
+    return db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("calls")
+        .orderBy("timestamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (e) => CallModel.fromJson(e.data()),
+              )
+              .toList(),
+        );
   }
 }

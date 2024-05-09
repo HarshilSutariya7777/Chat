@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class CallController extends GetxController {
@@ -60,6 +61,8 @@ class CallController extends GetxController {
   Future<void> callAction(
       UserModel reciver, UserModel caller, String type) async {
     String id = uuid;
+    DateTime timestamp = DateTime.now();
+    String nowTime = DateFormat("hh:mm a").format(timestamp);
     var newCall = CallModel(
       id: id,
       callerName: caller.name,
@@ -72,7 +75,10 @@ class CallController extends GetxController {
       receiverUid: reciver.id,
       status: "Dialing",
       type: type,
+      time: nowTime,
+      timestamp: DateTime.now().toString(),
     );
+
     try {
       await db
           .collection("notification")
